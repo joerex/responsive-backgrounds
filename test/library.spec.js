@@ -11,8 +11,8 @@ const doc = `
   <body>
     <div class="cover"
          data-src-sm="/assets/atget-full-small.jpg" 
-         data-src-sm="/assets/atget-full-medium.jpg" 
-         data-src-sm="/assets/atget-full-large.jpg">
+         data-src-md="/assets/atget-full-medium.jpg" 
+         data-src-lg="/assets/atget-full-large.jpg">
     </div>
   </body>
   </html>

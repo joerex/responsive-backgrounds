@@ -9,7 +9,7 @@ export default class ResponsiveBackgrounds {
     // process cover images on page load
     this.processCoverBackgrounds();
     // update cover images on browser resize
-    document.addEventListener('resize', () => {
+    window.addEventListener('resize', () => {
       clearTimeout(this.resizeTimeout);
       this.resizeTimeout = setTimeout(() => {
         this.processCoverBackgrounds();

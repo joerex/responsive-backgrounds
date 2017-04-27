@@ -7,8 +7,8 @@ Easy rsponsive background images until [we can use image-set](http://caniuse.com
 ```
 <div class="cover"
      data-src-sm="/assets/small.jpg" 
-     data-src-sm="/assets/medium.jpg" 
-     data-src-sm="/assets/large.jpg">
+     data-src-md="/assets/medium.jpg" 
+     data-src-lg="/assets/large.jpg">
 </div>
 ```
 
