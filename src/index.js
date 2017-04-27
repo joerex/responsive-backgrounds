@@ -15,11 +15,6 @@ export default class ResponsiveBackgrounds {
         this.processCoverBackgrounds();
       }, this.resizeDebounceTime);
     });
-    /*
-    Observable.fromEvent(window, 'resize')
-      .debounceTime(50)
-      .subscribe(event => this.processCoverBackgrounds());
-      */
   }
 
   processCoverBackgrounds() {

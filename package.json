@@ -1,7 +1,7 @@
 {
   "name": "responsive-backgrounds",
   "version": "0.2.2",
-  "description": "Easy rsponsive background images",
+  "description": "Easy responsive background images",
   "main": "lib/responsive-backgrounds.js",
   "scripts": {
     "build": "webpack --env build",

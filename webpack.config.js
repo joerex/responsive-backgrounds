@@ -3,16 +3,17 @@ const UglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 const path = require('path');
 const env = require('yargs').argv.env; // use --env with webpack 2
 
-let libraryName = 'responsive-backgrounds';
+let libraryName = 'ResponsiveBackgrounds';
+let fileName = 'responsive-backgrounds';
 
 let plugins = [], outputFile;
 
 if (env === 'build') {
   plugins.push(new UglifyJsPlugin({ minimize: true }));
-  outputFile = libraryName + '.min.js';
+  outputFile = fileName + '.min.js';
 }
 else {
-  outputFile = libraryName + '.js';
+  outputFile = fileName + '.js';
 }
 
 const config = {
