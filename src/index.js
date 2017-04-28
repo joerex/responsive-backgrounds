@@ -2,6 +2,14 @@
 export default class ResponsiveBackgrounds {
 
   constructor(selector = '.cover', options = {}) {
+    if (selector instanceof Array) {
+      this.usingSelector = false;
+      this.elements = selector;
+      selector = null;
+    }
+    else {
+      this.usingSelector = true;
+    }
     if (selector instanceof Object) {
       options = selector;
       selector = '.cover';
@@ -25,7 +33,7 @@ export default class ResponsiveBackgrounds {
 
   processCoverBackgrounds() {
     // get all of the cover images that need to be processed
-    let images = document.querySelectorAll(this.selector);
+    let images = this.usingSelector ? document.querySelectorAll(this.selector) : this.elements;
 
     // process all cover images
     for (let i = 0; i < images.length; i++) {

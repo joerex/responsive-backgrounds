@@ -99,5 +99,13 @@ describe('Given an instance of this library', () => {
       expect(customLib.options.lg).to.equal(800);
     });
 
+    it('should accept and process an array of elements', () => {
+      let newEl = dom.window.document.createElement('DIV');
+      newEl.setAttribute('data-src-xxs', '/assets/atget-full-small.jpg');
+      newEl.setAttribute('data-src-xs', '/assets/atget-full-md.jpg');
+      new ResponsiveBackgrounds([newEl]);
+      expect(newEl.style.backgroundImage).to.equal('url(/assets/atget-full-small.jpg)');
+    });
+
   });
 });
