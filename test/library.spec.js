@@ -90,5 +90,14 @@ describe('Given an instance of this library', () => {
       expect(el2.style.backgroundImage).to.equal('url(/assets/atget-full-medium-2.jpg)');
     });
 
+    it('should be able to handle custom breakpoints', () => {
+      let customLib = new ResponsiveBackgrounds({xxs: 20, xs: 80, sm: 200, md: 400, lg: 800});
+      expect(customLib.options.xxs).to.equal(20);
+      expect(customLib.options.xs).to.equal(80);
+      expect(customLib.options.sm).to.equal(200);
+      expect(customLib.options.md).to.equal(400);
+      expect(customLib.options.lg).to.equal(800);
+    });
+
   });
 });

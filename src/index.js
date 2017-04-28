@@ -1,9 +1,15 @@
 
 export default class ResponsiveBackgrounds {
 
-  constructor(selector) {
+  constructor(selector = '.cover', options = {}) {
+    if (selector instanceof Object) {
+      options = selector;
+      selector = '.cover';
+    }
+    let defaultOptions = {xxs: 320, xs: 480, sm: 768, md: 992, lg: 1200};
+    this.selector = selector;
+    this.options = Object.assign(defaultOptions, options);
     this.currentBreakpoints = [];
-    this.selector = selector || '.cover';
     this.resizeDebounceTime = 20;
     this.resizeTimeout = null;
     // process cover images on page load
@@ -32,15 +38,15 @@ export default class ResponsiveBackgrounds {
   getElSources(element) {
     let sources = [];
     if (element.getAttribute('data-src-xxs'))
-      sources.push({url: element.getAttribute('data-src-xxs'), breakpoint: 320});
+      sources.push({url: element.getAttribute('data-src-xxs'), breakpoint: this.options.xxs});
     if (element.getAttribute('data-src-xs'))
-      sources.push({url: element.getAttribute('data-src-xs'), breakpoint: 480});
+      sources.push({url: element.getAttribute('data-src-xs'), breakpoint: this.options.xs});
     if (element.getAttribute('data-src-sm'))
-      sources.push({url: element.getAttribute('data-src-sm'), breakpoint: 768});
+      sources.push({url: element.getAttribute('data-src-sm'), breakpoint: this.options.sm});
     if (element.getAttribute('data-src-md'))
-      sources.push({url: element.getAttribute('data-src-md'), breakpoint: 992});
+      sources.push({url: element.getAttribute('data-src-md'), breakpoint: this.options.md});
     if (element.getAttribute('data-src-lg'))
-      sources.push({url: element.getAttribute('data-src-lg'), breakpoint: 1200});
+      sources.push({url: element.getAttribute('data-src-lg'), breakpoint: this.options.lg});
     if (sources.length === 0)
       throw new Error('No sources found on cover element:', element);
     else
