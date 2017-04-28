@@ -1,5 +1,5 @@
 import chai from 'chai';
-import ResponsiveBackgrounds from '../lib/responsive-backgrounds.min.js';
+import ResponsiveBackgrounds from '../lib/responsive-backgrounds.js';
 const jsdom = require('jsdom');
 
 chai.expect();
@@ -14,13 +14,17 @@ const doc = `
          data-src-md="/assets/atget-full-medium.jpg" 
          data-src-lg="/assets/atget-full-large.jpg">
     </div>
+    <div class="cover"
+         data-src-sm="/assets/atget-full-small-2.jpg" 
+         data-src-md="/assets/atget-full-medium-2.jpg">
+    </div>
   </body>
   </html>
 `;
 
 let dom;
 let lib;
-let el;
+let el, el2;
 
 describe('Given an instance of this library', () => {
 
@@ -28,27 +32,25 @@ describe('Given an instance of this library', () => {
     dom = (new jsdom.JSDOM(doc)).window;
     global.window = dom;
     global.document = dom.document;
-    lib = new ResponsiveBackgrounds();
-    el = dom.window.document.createElement('DIV');
+    lib = new ResponsiveBackgrounds('.cover');
+    el = dom.window.document.querySelectorAll('.cover')[0];
+    el2 = dom.window.document.querySelectorAll('.cover')[1];
   });
 
   describe('when loaded', () => {
 
     it('should add a background-image style', () => {
-      let respBgs = new ResponsiveBackgrounds('.cover');
-      let backgroundEl = dom.window.document.querySelectorAll('.cover');
-      expect(backgroundEl[0].style.backgroundImage).to.equal('url(/assets/atget-full-small.jpg)');
+      // will always be small because jsdom has no width
+      expect(el.style.backgroundImage).to.equal('url(/assets/atget-full-small.jpg)');
     });
 
     it('should throw error if no sources are found on image', () => {
-      let fn = () => lib.getElSources(el);
+      let emptyEl = dom.window.document.createElement('DIV');
+      let fn = () => lib.getElSources(emptyEl);
       expect(fn).to.throw(Error);
     });
 
     it('should return an array of sources if they exist', () => {
-      el.setAttribute('data-src-sm', '/assets/atget-full-small.jpg');
-      el.setAttribute('data-src-md', '/assets/atget-full-medium.jpg');
-      el.setAttribute('data-src-lg', '/assets/atget-full-large.jpg');
       let sources = lib.getElSources(el);
       expect(sources).to.have.lengthOf(3);
     });
@@ -67,16 +69,25 @@ describe('Given an instance of this library', () => {
     });
 
     it('should never return a smaller image than previously returned', () => {
+      // start with a large width
       let width = 1200;
-      let sources = lib.getElSources(el);
-      let src = lib.getBgSource(sources, width);
-      lib.setSource(el, src);
+      // this has to work for multiple elements
+      [el, el2].forEach((e, i) => {
+        let sources = lib.getElSources(e);
+        let src = lib.getBgSource(sources, width);
+        lib.setSource(e, src, i);
+      });
       expect(el.style.backgroundImage).to.equal('url(/assets/atget-full-large.jpg)');
+      expect(el2.style.backgroundImage).to.equal('url(/assets/atget-full-medium-2.jpg)');
+      // scale down to a small width
       width = 300;
-      sources = lib.getElSources(el);
-      src = lib.getBgSource(sources, width);
-      lib.setSource(el, src);
+      [el, el2].forEach((e, i) => {
+        let sources = lib.getElSources(e);
+        let src = lib.getBgSource(sources, width);
+        lib.setSource(e, src, i);
+      });
       expect(el.style.backgroundImage).to.equal('url(/assets/atget-full-large.jpg)');
+      expect(el2.style.backgroundImage).to.equal('url(/assets/atget-full-medium-2.jpg)');
     });
 
   });

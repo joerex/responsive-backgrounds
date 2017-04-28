@@ -2,7 +2,7 @@
 export default class ResponsiveBackgrounds {
 
   constructor(selector) {
-    this.currentBreakpoint = null;
+    this.currentBreakpoints = [];
     this.selector = selector || '.cover';
     this.resizeDebounceTime = 20;
     this.resizeTimeout = null;
@@ -25,7 +25,7 @@ export default class ResponsiveBackgrounds {
     for (let i = 0; i < images.length; i++) {
       let sources = this.getElSources(images[i]);
       let src = this.getBgSource(sources, images[i].clientWidth);
-      this.setSource(images[i], src);
+      this.setSource(images[i], src, i);
     }
   }
 
@@ -60,10 +60,10 @@ export default class ResponsiveBackgrounds {
     }
   }
 
-  setSource(el, src) {
-    if (!this.currentBreakpoint || src.breakpoint > this.currentBreakpoint) {
+  setSource(el, src, i) {
+    if (!this.currentBreakpoints[i] || src.breakpoint > this.currentBreakpoints[i]) {
       el.style.backgroundImage = 'url(' + src.url + ')';
-      this.currentBreakpoint = src.breakpoint;
+      this.currentBreakpoints[i] = src.breakpoint;
     }
   }
 }
