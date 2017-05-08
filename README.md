@@ -27,6 +27,11 @@ new ResponsiveBackgrounds(); // uses selector '.cover'
 new ResponsiveBackgrounds('.my-responsive-backgrounds');
 
 ```
+```
+let el = document.querySelector('#dom-element');
+new ResponsiveBackgrounds(el);
+
+```
 Set custom breakpoints:
 ```
 new ResponsiveBackgrounds('.cover', {xxs: 222, xs: 356, sm: 650, md: 999, lg: 1400});
