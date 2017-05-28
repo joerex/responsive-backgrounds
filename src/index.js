@@ -14,7 +14,7 @@ export default class ResponsiveBackgrounds {
       options = selector;
       selector = '.cover';
     }
-    let defaultOptions = {xxs: 320, xs: 480, sm: 768, md: 992, lg: 1200, xl: 1920};
+    let defaultOptions = {xxs: 320, xs: 480, sm: 640, md: 768, lg: 1200, xl: 1920};
     this.selector = selector;
     this.options = Object.assign(defaultOptions, options);
     this.currentBreakpoints = [];
