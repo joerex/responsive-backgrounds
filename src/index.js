@@ -14,7 +14,7 @@ export default class ResponsiveBackgrounds {
       options = selector;
       selector = '.cover';
     }
-    let defaultOptions = {xxs: 320, xs: 480, sm: 768, md: 992, lg: 1200};
+    let defaultOptions = {xxs: 320, xs: 480, sm: 768, md: 992, lg: 1200, xl: 1920};
     this.selector = selector;
     this.options = Object.assign(defaultOptions, options);
     this.currentBreakpoints = [];
@@ -55,6 +55,8 @@ export default class ResponsiveBackgrounds {
       sources.push({url: element.getAttribute('data-src-md'), breakpoint: this.options.md});
     if (element.getAttribute('data-src-lg'))
       sources.push({url: element.getAttribute('data-src-lg'), breakpoint: this.options.lg});
+    if (element.getAttribute('data-src-xl'))
+      sources.push({url: element.getAttribute('data-src-xl'), breakpoint: this.options.xl});
     if (sources.length === 0)
       throw new Error('No sources found on cover element:', element);
     else
